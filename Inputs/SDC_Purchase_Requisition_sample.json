@@ -94,5 +94,5 @@
 	},
 	"api_schema": "/sap.s4.beh.purchaserequisition.v1.PurchaseRequisition.Created.v1",
 	"purchase_requisition": "10000011",
-	"deleted": ""
+	"deleted": false
 }
