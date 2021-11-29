@@ -1,4 +1,4 @@
-package file_reader
+package sap_api_input_reader
 
 type EC_MC struct {
 	ConnectionKey string `json:"connection_key"`
@@ -8,17 +8,17 @@ type EC_MC struct {
 	PurchaseRequisition struct {
 		PurchaseRequisition       string      `json:"document_no"`
 		Plant                     string      `json:"deliver_to"`
-		RequestedQuantity         float64     `json:"quantity"`
-		OrderedQuantity           float64     `json:"picked_quantity"`
-		PurchaseRequisitionPrice  float64     `json:"price"`
+		RequestedQuantity         string      `json:"quantity"`
+		OrderedQuantity           string      `json:"picked_quantity"`
+		PurchaseRequisitionPrice  string      `json:"price"`
 	    Batch                     string      `json:"batch"`
 	} `json:"document"`
 	ProductionOrder struct {
 		DocumentNo           string      `json:"document_no"`
 		Status               string      `json:"status"`
 		DeliverTo            string      `json:"deliver_to"`
-		Quantity             float64     `json:"quantity"`
-		CompletedQuantity    float64     `json:"completed_quantity"`
+		Quantity             string      `json:"quantity"`
+		CompletedQuantity    string      `json:"completed_quantity"`
 	    PlannedStartDate     string      `json:"planned_start_date"`
 	    PlannedValidatedDate string      `json:"planned_validated_date"`
 	    ActualStartDate      string      `json:"actual_start_date"`
@@ -26,11 +26,11 @@ type EC_MC struct {
 	    Batch                string      `json:"batch"`
 		Work              struct {
 			WorkNo                   string      `json:"work_no"`
-			Quantity                 float64     `json:"quantity"`
-			CompletedQuantity        float64     `json:"completed_quantity"`
-			ErroredQuantity          float64     `json:"errored_quantity"`
+			Quantity                 string      `json:"quantity"`
+			CompletedQuantity        string      `json:"completed_quantity"`
+			ErroredQuantity          string      `json:"errored_quantity"`
 			Component                string      `json:"component"`
-			PlannedComponentQuantity float64     `json:"planned_component_quantity"`
+			PlannedComponentQuantity string      `json:"planned_component_quantity"`
 			PlannedStartDate         string      `json:"planned_start_date"`
 			PlannedStartTime         string      `json:"planned_start_time"`
 			PlannedValidatedDate     string      `json:"planned_validated_date"`
@@ -44,12 +44,12 @@ type EC_MC struct {
 	APISchema                         string `json:"api_schema"`
 	MaterialCode                      string `json:"material_code"`
 	Supplier_SupplyingPlant           string `json:"plant/supplier"`
-	Stock                             float64 `json:"stock"`
+	Stock                             string  `json:"stock"`
 	PurchaseRequisitionType           string `json:"document_type"`
 	PurchaseRequisition               string `json:"document_no"`
 	DeliveryDate                      string `json:"planned_date"`
 	PurchaseRequisitionReleaseDate    string `json:"validated_date"`
-	Deleted                           string `json:"deleted"`
+	Deleted                           bool   `json:"deleted"`
 }
 
 type SDC struct {
@@ -62,9 +62,9 @@ type SDC struct {
 		PurchaseRequisitionType string `json:"PurchaseRequisitionType"`
 		SourceDetermination     string `json:"SourceDetermination"`
 		PurchaseRequisitionItem struct {
-			PurchaseRequisitionItem        int    `json:"PurchaseRequisitionItem"`
+			PurchaseRequisitionItem        string `json:"PurchaseRequisitionItem"`
 			PurchasingDocument             string `json:"PurchasingDocument"`
-			PurchasingDocumentItem         int    `json:"PurchasingDocumentItem"`
+			PurchasingDocumentItem         string `json:"PurchasingDocumentItem"`
 			PurReqnReleaseStatus           string `json:"PurReqnReleaseStatus"`
 			PurchasingDocumentItemCategory string `json:"PurchasingDocumentItemCategory"`
 			PurchaseRequisitionItemText    string `json:"PurchaseRequisitionItemText"`
@@ -72,20 +72,20 @@ type SDC struct {
 			Material                       string `json:"Material"`
 			MaterialGroup                  string `json:"MaterialGroup"`
 			PurchasingDocumentCategory     string `json:"PurchasingDocumentCategory"`
-			RequestedQuantity              float64 `json:"RequestedQuantity"`
+			RequestedQuantity              string `json:"RequestedQuantity"`
 			BaseUnit                       string `json:"BaseUnit"`
-			PurchaseRequisitionPrice       float64 `json:"PurchaseRequisitionPrice"`
-			PurReqnPriceQuantity           float64 `json:"PurReqnPriceQuantity"`
-			MaterialGoodsReceiptDuration   int    `json:"MaterialGoodsReceiptDuration"`
+			PurchaseRequisitionPrice       string `json:"PurchaseRequisitionPrice"`
+			PurReqnPriceQuantity           string `json:"PurReqnPriceQuantity"`
+			MaterialGoodsReceiptDuration   string `json:"MaterialGoodsReceiptDuration"`
 			ReleaseCode                    string `json:"ReleaseCode"`
 			PurchaseRequisitionReleaseDate string `json:"PurchaseRequisitionReleaseDate"`
 			PurchasingOrganization         string `json:"PurchasingOrganization"`
 			PurchasingGroup                string `json:"PurchasingGroup"`
 			Plant                          string `json:"Plant"`
 			CompanyCode                    string `json:"CompanyCode"`
-			SourceOfSupplyIsAssigned       string `json:"SourceOfSupplyIsAssigned"`
+			SourceOfSupplyIsAssigned       bool   `json:"SourceOfSupplyIsAssigned"`
 			SupplyingPlant                 string `json:"SupplyingPlant"`
-			OrderedQuantity                float64 `json:"OrderedQuantity"`
+			OrderedQuantity                string `json:"OrderedQuantity"`
 			DeliveryDate                   string `json:"DeliveryDate"`
 			CreationDate                   string `json:"CreationDate"`
 			ProcessingStatus               string `json:"ProcessingStatus"`
@@ -95,23 +95,23 @@ type SDC struct {
 			FixedSupplier                  string `json:"FixedSupplier"`
 			RequisitionerName              string `json:"RequisitionerName"`
 			PurReqnItemCurrency            string `json:"PurReqnItemCurrency"`
-			MaterialPlannedDeliveryDurn    int    `json:"MaterialPlannedDeliveryDurn"`
+			MaterialPlannedDeliveryDurn    string `json:"MaterialPlannedDeliveryDurn"`
 			StorageLocation                string `json:"StorageLocation"`
 			PurReqnSourceOfSupplyType      string `json:"PurReqnSourceOfSupplyType"`
 			ConsumptionPosting             string `json:"ConsumptionPosting"`
 			PurReqnOrigin                  string `json:"PurReqnOrigin"`
-			IsPurReqnBlocked               string `json:"IsPurReqnBlocked"`
+			IsPurReqnBlocked               bool   `json:"IsPurReqnBlocked"`
 			PurchaseRequisitionStatus      string `json:"PurchaseRequisitionStatus"`
 			Batch                          string `json:"Batch"`
-			GoodsReceiptIsExpected         string `json:"GoodsReceiptIsExpected"`
-			GoodsReceiptIsNonValuated      string `json:"GoodsReceiptIsNonValuated"`
+			GoodsReceiptIsExpected         bool   `json:"GoodsReceiptIsExpected"`
+			GoodsReceiptIsNonValuated      bool   `json:"GoodsReceiptIsNonValuated"`
 			RequirementTracking            string `json:"RequirementTracking"`
 			MRPController                  string `json:"MRPController"`
-			Reservation                    int    `json:"Reservation"`
+			Reservation                    string `json:"Reservation"`
 			LastChangeDateTime             string `json:"LastChangeDateTime"`
-			IsDeleted                      string `json:"IsDeleted"`
+			IsDeleted                      bool   `json:"IsDeleted"`
 			PurchaseReqnAcctAssgmtNumber   struct {
-				PurchaseReqnAcctAssgmtNumber int    `json:"PurchaseReqnAcctAssgmtNumber"`
+				PurchaseReqnAcctAssgmtNumber string `json:"PurchaseReqnAcctAssgmtNumber"`
 				CostCenter                   string `json:"CostCenter"`
 				MasterFixedAsset             string `json:"MasterFixedAsset"`
 				FixedAsset                   string `json:"FixedAsset"`
@@ -121,18 +121,18 @@ type SDC struct {
 				GLAccount                    string `json:"GLAccount"`
 				BusinessArea                 string `json:"BusinessArea"`
 				SalesOrder                   string `json:"SalesOrder"`
-				SalesOrderItem               int    `json:"SalesOrderItem"`
-				SalesOrderScheduleLine       int    `json:"SalesOrderScheduleLine"`
+				SalesOrderItem               string `json:"SalesOrderItem"`
+				SalesOrderScheduleLine       string `json:"SalesOrderScheduleLine"`
 				OrderID                      string `json:"OrderID"`
 				UnloadingPointName           string `json:"UnloadingPointName"`
 				ControllingArea              string `json:"ControllingArea"`
-				ProfitabilitySegment         int    `json:"ProfitabilitySegment"`
+				ProfitabilitySegment         string `json:"ProfitabilitySegment"`
 				ProfitCenter                 string `json:"ProfitCenter"`
 				FunctionalArea               string `json:"FunctionalArea"`
 				GoodsRecipientName           string `json:"GoodsRecipientName"`
 				CostCtrActivityType          string `json:"CostCtrActivityType"`
-				WBSElement                   int    `json:"WBSElement"`
-				IsDeleted                    string `json:"IsDeleted"`
+				WBSElement                   string `json:"WBSElement"`
+				IsDeleted                    bool   `json:"IsDeleted"`
 			} `json:"PurchaseReqnAcctAssgmtNumber"`
 			AddressID struct {
 				AddressID              string `json:"AddressID"`
@@ -148,5 +148,5 @@ type SDC struct {
 	} `json:"PurchaseRequisition"`
 	APISchema           string `json:"api_schema"`
 	PurchaseRequisition string `json:"purchase_requisition"`
-	Deleted             string `json:"deleted"`
+	Deleted             bool   `json:"deleted"`
 }
