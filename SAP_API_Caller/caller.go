@@ -24,16 +24,24 @@ func NewSAPAPICaller(baseUrl string, l *logger.Logger) *SAPAPICaller {
 	}
 }
 		
-func (c *SAPAPICaller) AsyncGetPurchaseRequisition(PurchaseRequisition, PurchaseRequisitionItem, PurchasingDocument string) {
+func (c *SAPAPICaller) AsyncGetPurchaseRequisition(PurchaseRequisition, PurchaseRequisitionItem, PurchasingDocument, PurchasingDocumentItem string) {
 	wg := &sync.WaitGroup{}
 
-	wg.Add(3)
+	wg.Add(5)
 	go func() {
 		c.Header(PurchaseRequisition)
 		wg.Done()
 	}()
 	go func() {
 		c.Item(PurchaseRequisition, PurchaseRequisitionItem)
+		wg.Done()
+	}()
+	go func() {
+		c.DeliveryAddress(PurchaseRequisition, PurchaseRequisitionItem)
+		wg.Done()
+	}()
+	go func() {
+		c.Account(PurchaseRequisition, PurchaseRequisitionItem)
 		wg.Done()
 	}()
 	go func() {
@@ -55,7 +63,29 @@ func (c *SAPAPICaller) Header(PurchaseRequisition string) {
 }
 
 func (c *SAPAPICaller) Item(PurchaseRequisition, PurchaseRequisitionItem string) {
-	res, err := c.callPurchaseRequisitionSrvAPIRequirementItem("/A_PurchaseRequisitionHeader('{PurchaseRequisition}')/to_PurchaseReqnItem", PurchaseRequisition, PurchaseRequisitionItem)
+	res, err := c.callPurchaseRequisitionSrvAPIRequirementItem("A_PurchaseRequisitionItem", PurchaseRequisition, PurchaseRequisitionItem)
+	if err != nil {
+		c.log.Error(err)
+		return
+	}
+
+	c.log.Info(res)
+
+}
+
+func (c *SAPAPICaller) DeliveryAddress(PurchaseRequisition, PurchaseRequisitionItem string) {
+	res, err := c.callPurchaseRequisitionSrvAPIRequirementDeliveryAddress("A_PurReqAddDelivery", PurchaseRequisition, PurchaseRequisitionItem)
+	if err != nil {
+		c.log.Error(err)
+		return
+	}
+
+	c.log.Info(res)
+
+}
+
+func (c *SAPAPICaller) Account(PurchaseRequisition, PurchaseRequisitionItem string) {
+	res, err := c.callPurchaseRequisitionSrvAPIRequirementAccount("A_PurReqnAcctAssgmt", PurchaseRequisition, PurchaseRequisitionItem)
 	if err != nil {
 		c.log.Error(err)
 		return
@@ -66,7 +96,7 @@ func (c *SAPAPICaller) Item(PurchaseRequisition, PurchaseRequisitionItem string)
 }
 
 func (c *SAPAPICaller) PurchasingDocument(PurchasingDocument, PurchasingDocumentItem string) {
-	res, err := c.callPurchaseRequisitionSrvAPIRequirementPurchasingDocument("A_PurchaseRequisitionHeader('{PurchaseRequisition}')/to_PurchaseReqnItem", PurchasingDocument, PurchasingDocumentItem)
+	res, err := c.callPurchaseRequisitionSrvAPIRequirementPurchasingDocument("A_PurchaseRequisitionItem", PurchasingDocument, PurchasingDocumentItem)
 	if err != nil {
 		c.log.Error(err)
 		return
@@ -100,6 +130,52 @@ func (c *SAPAPICaller) callPurchaseRequisitionSrvAPIRequirementHeader(api, Purch
 }
 
 func (c *SAPAPICaller) callPurchaseRequisitionSrvAPIRequirementItem(api, PurchaseRequisition, PurchaseRequisitionItem string) ([]byte, error) {
+	url := strings.Join([]string{c.baseURL, "API_PURCHASEREQ_PROCESS_SRV", api}, "/")
+	req, _ := http.NewRequest("GET", url, nil)
+
+	params := req.URL.Query()
+	// params.Add("$select", "PurchaseRequisition, PurchaseRequisitionItem")
+	params.Add("$filter", fmt.Sprintf("PurchaseRequisition eq '%s' and PurchaseRequisitionItem eq '%s'", PurchaseRequisition, PurchaseRequisitionItem))
+	req.URL.RawQuery = params.Encode()
+
+	req.Header.Set("APIKey", c.apiKey)
+	req.Header.Set("Accept", "application/json")
+
+	client := new(http.Client)
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	byteArray, _ := ioutil.ReadAll(resp.Body)
+	return byteArray, nil
+}
+
+func (c *SAPAPICaller) callPurchaseRequisitionSrvAPIRequirementDeliveryAddress(api, PurchaseRequisition, PurchaseRequisitionItem string) ([]byte, error) {
+	url := strings.Join([]string{c.baseURL, "API_PURCHASEREQ_PROCESS_SRV", api}, "/")
+	req, _ := http.NewRequest("GET", url, nil)
+
+	params := req.URL.Query()
+	// params.Add("$select", "PurchaseRequisition, PurchaseRequisitionItem")
+	params.Add("$filter", fmt.Sprintf("PurchaseRequisition eq '%s' and PurchaseRequisitionItem eq '%s'", PurchaseRequisition, PurchaseRequisitionItem))
+	req.URL.RawQuery = params.Encode()
+
+	req.Header.Set("APIKey", c.apiKey)
+	req.Header.Set("Accept", "application/json")
+
+	client := new(http.Client)
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	byteArray, _ := ioutil.ReadAll(resp.Body)
+	return byteArray, nil
+}
+
+func (c *SAPAPICaller) callPurchaseRequisitionSrvAPIRequirementAccount(api, PurchaseRequisition, PurchaseRequisitionItem string) ([]byte, error) {
 	url := strings.Join([]string{c.baseURL, "API_PURCHASEREQ_PROCESS_SRV", api}, "/")
 	req, _ := http.NewRequest("GET", url, nil)
 

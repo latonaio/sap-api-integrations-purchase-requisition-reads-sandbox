@@ -1,6 +1,6 @@
 package sap_api_output_formatter
 
-type PurchaseRequisitionReads struct {
+type PurchaseRequisition struct {
 	ConnectionKey       string `json:"connection_key"`
 	Result              bool   `json:"result"`
 	RedisKey            string `json:"redis_key"`
@@ -10,13 +10,13 @@ type PurchaseRequisitionReads struct {
 	Deleted             bool   `json:"deleted"`
 }
 
-type PurchaseRequisition struct {
+type Header struct {
 	PurchaseRequisition     string `json:"PurchaseRequisition"`
 	PurchaseRequisitionType string `json:"PurchaseRequisitionType"`
 	SourceDetermination     string `json:"SourceDetermination"`
 }
 
-type PurchaseRequisitionItem struct {
+type Item struct {
 	PurchaseRequisition            string `json:"PurchaseRequisition"`
 	PurchaseRequisitionItem        string `json:"PurchaseRequisitionItem"`
 	PurchasingDocument             string `json:"PurchasingDocument"`
@@ -68,7 +68,20 @@ type PurchaseRequisitionItem struct {
 	IsDeleted                      bool   `json:"IsDeleted"`
 }
 
-type PurchaseReqnAcctAssgmtNumber struct {
+type DeliveryAddress struct {
+	PurchaseRequisition     string `json:"PurchaseRequisition"`
+	PurchaseRequisitionItem string `json:"PurchaseRequisitionItem"`
+	AddressID               string `json:"AddressID"`
+	Country                 string `json:"Country"`
+	Region                  string `json:"Region"`
+	StreetName              string `json:"StreetName"`
+	CityName                string `json:"CityName"`
+	CorrespondenceLanguage  string `json:"CorrespondenceLanguage"`
+	FaxNumber               string `json:"FaxNumber"`
+	PhoneNumber             string `json:"PhoneNumber"`
+}
+
+type Account struct {
 	PurchaseRequisition          string `json:"PurchaseRequisition"`
 	PurchaseRequisitionItem      string `json:"PurchaseRequisitionItem"`
 	PurchaseReqnAcctAssgmtNumber string `json:"PurchaseReqnAcctAssgmtNumber"`
@@ -93,17 +106,4 @@ type PurchaseReqnAcctAssgmtNumber struct {
 	CostCtrActivityType          string `json:"CostCtrActivityType"`
 	WBSElement                   string `json:"WBSElement"`
 	IsDeleted                    bool   `json:"IsDeleted"`
-}
-
-type DeliveryAddressID struct {
-	PurchaseRequisition     string `json:"PurchaseRequisition"`
-	PurchaseRequisitionItem string `json:"PurchaseRequisitionItem"`
-	AddressID               string `json:"AddressID"`
-	Country                 string `json:"Country"`
-	Region                  string `json:"Region"`
-	StreetName              string `json:"StreetName"`
-	CityName                string `json:"CityName"`
-	CorrespondenceLanguage  string `json:"CorrespondenceLanguage"`
-	FaxNumber               string `json:"FaxNumber"`
-	PhoneNumber             string `json:"PhoneNumber"`
 }
