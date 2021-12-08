@@ -1,0 +1,7 @@
+{
+	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-purchase-requisition-reads/SAP_API_Caller/caller.go#L153",
+	"function": "sap-api-integrations-purchase-requisition-reads/SAP_API_Caller.(*SAPAPICaller).Account",
+	"level": "INFO",
+	"message": "&{PurchaseRequisition:10000012 PurchaseRequisitionItem:10 PurchaseReqnAcctAssgmtNumber:1 CostCenter: MasterFixedAsset: FixedAsset: ProjectNetwork: CostElement:51600000 CostObject: GLAccount:51600000 BusinessArea: SalesOrder:8 SalesOrderItem:10 SalesOrderScheduleLine:1 OrderID: UnloadingPointName: ControllingArea:A000 ProfitabilitySegment:176393 ProfitCenter:YB700 FunctionalArea:YB99 GoodsRecipientName: CostCtrActivityType: WBSElement: IsDeleted:}",
+	"time": "2021-12-08T11:22:14.92018+09:00"
+}

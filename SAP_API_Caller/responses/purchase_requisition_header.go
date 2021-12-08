@@ -10,7 +10,7 @@ type Header struct {
 			} `json:"__metadata"`
 			PurchaseRequisition     string `json:"PurchaseRequisition"`
 			PurchaseRequisitionType string `json:"PurchaseRequisitionType"`
-			SourceDetermination     string `json:"SourceDetermination"`
+			SourceDetermination     bool   `json:"SourceDetermination"`
 		} `json:"results"`
 	} `json:"d"`
 }

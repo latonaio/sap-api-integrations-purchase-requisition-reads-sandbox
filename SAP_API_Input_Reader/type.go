@@ -46,8 +46,8 @@ type EC_MC struct {
 	Supplier_SupplyingPlant           string `json:"plant/supplier"`
 	Stock                             string  `json:"stock"`
 	PurchaseRequisitionType           string `json:"document_type"`
-	PurchaseRequisition               string `json:"document_no"`
-	DeliveryDate                      string `json:"planned_date"`
+	PRNumber                          string `json:"document_no"`
+    DeliveryDate                      string `json:"planned_date"`
 	PurchaseRequisitionReleaseDate    string `json:"validated_date"`
 	Deleted                           bool   `json:"deleted"`
 }
@@ -60,7 +60,7 @@ type SDC struct {
 	PurchaseRequisition struct {
 		PurchaseRequisition     string `json:"PurchaseRequisition"`
 		PurchaseRequisitionType string `json:"PurchaseRequisitionType"`
-		SourceDetermination     string `json:"SourceDetermination"`
+		SourceDetermination     bool   `json:"SourceDetermination"`
 		PurchaseRequisitionItem struct {
 			PurchaseRequisitionItem        string `json:"PurchaseRequisitionItem"`
 			PurchasingDocument             string `json:"PurchasingDocument"`
@@ -100,7 +100,7 @@ type SDC struct {
 			PurReqnSourceOfSupplyType      string `json:"PurReqnSourceOfSupplyType"`
 			ConsumptionPosting             string `json:"ConsumptionPosting"`
 			PurReqnOrigin                  string `json:"PurReqnOrigin"`
-			IsPurReqnBlocked               bool   `json:"IsPurReqnBlocked"`
+			IsPurReqnBlocked               string `json:"IsPurReqnBlocked"`
 			PurchaseRequisitionStatus      string `json:"PurchaseRequisitionStatus"`
 			Batch                          string `json:"Batch"`
 			GoodsReceiptIsExpected         bool   `json:"GoodsReceiptIsExpected"`
@@ -109,7 +109,7 @@ type SDC struct {
 			MRPController                  string `json:"MRPController"`
 			Reservation                    string `json:"Reservation"`
 			LastChangeDateTime             string `json:"LastChangeDateTime"`
-			IsDeleted                      bool   `json:"IsDeleted"`
+			IsDeleted                      string   `json:"IsDeleted"`
 			PurchaseReqnAcctAssgmtNumber   struct {
 				PurchaseReqnAcctAssgmtNumber string `json:"PurchaseReqnAcctAssgmtNumber"`
 				CostCenter                   string `json:"CostCenter"`
@@ -132,7 +132,7 @@ type SDC struct {
 				GoodsRecipientName           string `json:"GoodsRecipientName"`
 				CostCtrActivityType          string `json:"CostCtrActivityType"`
 				WBSElement                   string `json:"WBSElement"`
-				IsDeleted                    bool   `json:"IsDeleted"`
+				IsDeleted                    string `json:"IsDeleted"`
 			} `json:"PurchaseReqnAcctAssgmtNumber"`
 			AddressID struct {
 				AddressID              string `json:"AddressID"`
@@ -147,6 +147,6 @@ type SDC struct {
 		} `json:"PurchaseRequisitionItem"`
 	} `json:"PurchaseRequisition"`
 	APISchema           string `json:"api_schema"`
-	PurchaseRequisition string `json:"purchase_requisition"`
+	PRNumber            string `json:"purchase_requisition"`
 	Deleted             bool   `json:"deleted"`
 }

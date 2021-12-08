@@ -31,7 +31,7 @@ type Account struct {
 			GoodsRecipientName           string `json:"GoodsRecipientName"`
 			CostCtrActivityType          string `json:"CostCtrActivityType"`
 			WBSElement                   string `json:"WBSElement"`
-			IsDeleted                    bool   `json:"IsDeleted"`
+			IsDeleted                    string `json:"IsDeleted"`
 		} `json:"results"`
 	} `json:"d"`
 }

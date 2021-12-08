@@ -47,7 +47,7 @@ type Item struct {
 			PurReqnSourceOfSupplyType      string `json:"PurReqnSourceOfSupplyType"`
 			ConsumptionPosting             string `json:"ConsumptionPosting"`
 			PurReqnOrigin                  string `json:"PurReqnOrigin"`
-			IsPurReqnBlocked               bool   `json:"IsPurReqnBlocked"`
+			IsPurReqnBlocked               string `json:"IsPurReqnBlocked"`
 			PurchaseRequisitionStatus      string `json:"PurchaseRequisitionStatus"`
 			Batch                          string `json:"Batch"`
 			GoodsReceiptIsExpected         bool   `json:"GoodsReceiptIsExpected"`
@@ -56,7 +56,7 @@ type Item struct {
 			MRPController                  string `json:"MRPController"`
 			Reservation                    string `json:"Reservation"`
 			LastChangeDateTime             string `json:"LastChangeDateTime"`
-			IsDeleted                      bool   `json:"IsDeleted"`
+			IsDeleted                      string `json:"IsDeleted"`
 		} `json:"results"`
 	} `json:"d"`
 }
