@@ -26,30 +26,41 @@ func NewSAPAPICaller(baseUrl string, l *logger.Logger) *SAPAPICaller {
 	}
 }
 
-func (c *SAPAPICaller) AsyncGetPurchaseRequisition(purchaseRequisition, purchaseRequisitionItem, purchasingDocument, purchasingDocumentItem string) {
+func (c *SAPAPICaller) AsyncGetPurchaseRequisition(purchaseRequisition, purchaseRequisitionItem, purchasingDocument, purchasingDocumentItem string, accepter []string) {
 	wg := &sync.WaitGroup{}
+	wg.Add(len(accepter))
+	for _, fn := range accepter {
+		switch fn {
+		case "Header":
+			func() {
+				c.Header(purchaseRequisition)
+				wg.Done()
+			}()
+		case "Item":
+			func() {
+				c.Item(purchaseRequisition, purchaseRequisitionItem)
+				wg.Done()
+			}()
+		case "DeliveryAddress":
+			func() {
+				c.DeliveryAddress(purchaseRequisition, purchaseRequisitionItem)
+				wg.Done()
+			}()
+		case "Account":
+			func() {
+				c.Account(purchaseRequisition, purchaseRequisitionItem)
+				wg.Done()
+			}()
+		case "PurchasingDocument":
+			func() {
+				c.PurchasingDocument(purchasingDocument, purchasingDocumentItem)
+				wg.Done()
+			}()
+		default:
+			wg.Done()
+		}
+	}
 
-	wg.Add(5)
-	func() {
-		c.Header(purchaseRequisition)
-		wg.Done()
-	}()
-	func() {
-		c.Item(purchaseRequisition, purchaseRequisitionItem)
-		wg.Done()
-	}()
-	func() {
-		c.DeliveryAddress(purchaseRequisition, purchaseRequisitionItem)
-		wg.Done()
-	}()
-	func() {
-		c.Account(purchaseRequisition, purchaseRequisitionItem)
-		wg.Done()
-	}()
-	func() {
-		c.PurchasingDocument(purchasingDocument, purchasingDocumentItem)
-		wg.Done()
-	}()
 	wg.Wait()
 }
 
@@ -142,7 +153,6 @@ func (c *SAPAPICaller) callPurchaseRequisitionSrvAPIRequirementDeliveryAddress(a
 	}
 	return data, nil
 }
-
 
 func (c *SAPAPICaller) Account(purchaseRequisition, purchaseRequisitionItem string) {
 	data, err := c.callPurchaseRequisitionSrvAPIRequirementAccount("A_PurReqnAcctAssgmt", purchaseRequisition, purchaseRequisitionItem)

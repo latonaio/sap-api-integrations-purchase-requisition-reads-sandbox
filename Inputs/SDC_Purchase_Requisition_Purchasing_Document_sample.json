@@ -9,7 +9,7 @@
 		"SourceDetermination": false,
 		"PurchaseRequisitionItem": {
 			"PurchaseRequisitionItem": "",
-			"PurchasingDocument": "4500002421",
+			"PurchasingDocument": "4500000024",
 			"PurchasingDocumentItem": "10",
 			"PurReqnReleaseStatus": "",
 			"PurchasingDocumentItemCategory": "",
@@ -93,6 +93,7 @@
 		}
 	},
 	"api_schema": "/sap.s4.beh.purchaserequisition.v1.PurchaseRequisition.Created.v1",
+	"accepter": ["PurchasingDocument"],
 	"purchase_requisition": "",
 	"deleted": false
 }
