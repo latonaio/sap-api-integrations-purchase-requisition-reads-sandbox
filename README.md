@@ -51,8 +51,8 @@ accepter において 下記の例のように、データの種別（＝APIの�
   
 ```
 	"api_schema": "/sap.s4.beh.purchaserequisition.v1.PurchaseRequisition.Created.v1",
-	"accepter": ["PurchasingDocument"],
-	"purchase_requisition": "",
+	"accepter": ["Header","Item","DeliveryAddress"],
+	"purchase_requisition": "10000010",
 	"deleted": false
 ```
   
@@ -63,7 +63,7 @@ accepter において 下記の例のように、データの種別（＝APIの�
 ```
 	"api_schema": "/sap.s4.beh.purchaserequisition.v1.PurchaseRequisition.Created.v1",
 	"accepter": ["All"],
-	"purchase_requisition": "",
+	"purchase_requisition": "10000010",
 	"deleted": false
 ```
 
