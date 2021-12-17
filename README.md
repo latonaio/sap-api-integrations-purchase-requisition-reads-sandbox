@@ -112,3 +112,17 @@ func (c *SAPAPICaller) AsyncGetPurchaseRequisition(purchaseRequisition, purchase
 }
 ```
 
+## Output  
+本マイクロサービスでは、[golang-logging-library](https://github.com/latonaio/golang-logging-library) により、以下のようなデータがJSON形式で出力されます。  
+以下の sample.json の例は、SAP 購買依頼  の ヘッダ が取得された結果の JSON の例です。  
+以下の項目のうち、"PurchaseRequisition" ～ "SourceDetermination" は、/SAP_API_Output_Formatter/type.go 内 の Type Product {} による出力結果です。"cursor" ～ "time"は、golang-logging-library による 定型フォーマットの出力結果です。  
+
+```
+{
+	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-purchase-requisition-reads/SAP_API_Caller/caller.go#L62",
+	"function": "sap-api-integrations-purchase-requisition-reads/SAP_API_Caller.(*SAPAPICaller).Header",
+	"level": "INFO",
+	"message": "&{PurchaseRequisition:10000012 PurchaseRequisitionType:NB SourceDetermination:false}",
+	"time": "2021-12-08T10:27:56.594315+09:00"
+}
+```
