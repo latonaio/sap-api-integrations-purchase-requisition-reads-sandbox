@@ -1,0 +1,18 @@
+{
+	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-purchase-requisition-reads/SAP_API_Caller/caller.go#L185",
+	"function": "sap-api-integrations-purchase-requisition-reads/SAP_API_Caller.(*SAPAPICaller).Item",
+	"level": "INFO",
+	"message": {
+		"PurchaseRequisition": "10000010",
+		"PurchaseRequisitionItem": "10",
+		"AddressID": "22900",
+		"Country": "US",
+		"Region": "GA",
+		"StreetName": "Augusta Ave SE",
+		"CityName": "Atlanta",
+		"CorrespondenceLanguage": "EN",
+		"FaxNumber": "",
+		"PhoneNumber": "999 555 6721"
+	},
+	"time": "2021-12-31T10:54:53.396986+09:00"
+}

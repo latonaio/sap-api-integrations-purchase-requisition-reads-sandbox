@@ -1,6 +1,6 @@
 package responses
 
-type Account struct {
+type ItemAccount struct {
 	D struct {
 		Results []struct {
 			Metadata struct {

@@ -1,7 +1,0 @@
-{
-	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-purchase-requisition-reads/SAP_API_Caller/caller.go#L62",
-	"function": "sap-api-integrations-purchase-requisition-reads/SAP_API_Caller.(*SAPAPICaller).Header",
-	"level": "INFO",
-	"message": "&{PurchaseRequisition:10000012 PurchaseRequisitionType:NB SourceDetermination:false}",
-	"time": "2021-12-08T10:27:56.594315+09:00"
-}

@@ -1,0 +1,14 @@
+{
+	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-purchase-requisition-reads/SAP_API_Caller/caller.go#L73",
+	"function": "sap-api-integrations-purchase-requisition-reads/SAP_API_Caller.(*SAPAPICaller).Header",
+	"level": "INFO",
+	"message": [
+		{
+			"PurchaseRequisition": "10000010",
+			"PurchaseRequisitionType": "NB",
+			"SourceDetermination": false,
+			"to_PurchaseReqnItem": "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/API_PURCHASEREQ_PROCESS_SRV/A_PurchaseRequisitionHeader('10000010')/to_PurchaseReqnItem"
+		}
+	],
+	"time": "2021-12-31T10:52:54.330939+09:00"
+}

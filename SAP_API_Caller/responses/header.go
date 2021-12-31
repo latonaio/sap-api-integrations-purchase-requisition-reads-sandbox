@@ -11,6 +11,11 @@ type Header struct {
 			PurchaseRequisition     string `json:"PurchaseRequisition"`
 			PurchaseRequisitionType string `json:"PurchaseRequisitionType"`
 			SourceDetermination     bool   `json:"SourceDetermination"`
+			ToItem                  struct {
+				Deferred struct {
+					URI string `json:"uri"`
+				} `json:"__deferred"`
+			} `json:"to_PurchaseReqnItem"`
 		} `json:"results"`
 	} `json:"d"`
 }

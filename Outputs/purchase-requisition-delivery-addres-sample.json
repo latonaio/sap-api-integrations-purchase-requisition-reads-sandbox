@@ -1,7 +1,0 @@
-{
-	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-purchase-requisition-reads/SAP_API_Caller/caller.go#L122",
-	"function": "sap-api-integrations-purchase-requisition-reads/SAP_API_Caller.(*SAPAPICaller).DeliveryAddress",
-	"level": "INFO",
-	"message": "&{PurchaseRequisition:10000012 PurchaseRequisitionItem:10 AddressID:22900 Country:US Region:GA StreetName:Augusta Ave SE CityName:Atlanta CorrespondenceLanguage:EN FaxNumber: PhoneNumber:999 555 6721}",
-	"time": "2021-12-08T10:27:59.432709+09:00"
-}

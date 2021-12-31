@@ -18,7 +18,7 @@ func main() {
 	accepter := inoutSDC.Accepter
 	if len(accepter) == 0 || accepter[0] == "All" {
 		accepter = []string{
-			"Header", "Item", "DeliveryAddress", "Account",
+			"Header", "Item", "ItemDeliveryAddress", "ItemAccount",
 			"PurchasingDocument",
 		}
 	}

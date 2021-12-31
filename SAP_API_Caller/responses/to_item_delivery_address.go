@@ -1,13 +1,12 @@
 package responses
 
-type DeliveryAddress struct {
+type ToItemDeliveryAddress struct {
 	D struct {
-		Results []struct {
-			Metadata struct {
-				ID   string `json:"id"`
-				URI  string `json:"uri"`
-				Type string `json:"type"`
-			} `json:"__metadata"`
+		Metadata struct {
+			ID   string `json:"id"`
+			URI  string `json:"uri"`
+			Type string `json:"type"`
+		} `json:"__metadata"`
 			PurchaseRequisition     string `json:"PurchaseRequisition"`
 			PurchaseRequisitionItem string `json:"PurchaseRequisitionItem"`
 			AddressID               string `json:"AddressID"`
@@ -18,6 +17,5 @@ type DeliveryAddress struct {
 			CorrespondenceLanguage  string `json:"CorrespondenceLanguage"`
 			FaxNumber               string `json:"FaxNumber"`
 			PhoneNumber             string `json:"PhoneNumber"`
-		} `json:"results"`
 	} `json:"d"`
 }

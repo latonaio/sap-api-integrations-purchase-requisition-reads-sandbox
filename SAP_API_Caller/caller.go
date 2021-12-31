@@ -41,14 +41,14 @@ func (c *SAPAPICaller) AsyncGetPurchaseRequisition(purchaseRequisition, purchase
 				c.Item(purchaseRequisition, purchaseRequisitionItem)
 				wg.Done()
 			}()
-		case "DeliveryAddress":
+		case "ItemDeliveryAddress":
 			func() {
-				c.DeliveryAddress(purchaseRequisition, purchaseRequisitionItem)
+				c.ItemDeliveryAddress(purchaseRequisition, purchaseRequisitionItem)
 				wg.Done()
 			}()
-		case "Account":
+		case "ItemAccount":
 			func() {
-				c.Account(purchaseRequisition, purchaseRequisitionItem)
+				c.ItemAccount(purchaseRequisition, purchaseRequisitionItem)
 				wg.Done()
 			}()
 		case "PurchasingDocument":
@@ -65,15 +65,36 @@ func (c *SAPAPICaller) AsyncGetPurchaseRequisition(purchaseRequisition, purchase
 }
 
 func (c *SAPAPICaller) Header(purchaseRequisition string) {
-	data, err := c.callPurchaseRequisitionSrvAPIRequirementHeader("A_PurchaseRequisitionHeader", purchaseRequisition)
+	headerData, err := c.callPurchaseRequisitionSrvAPIRequirementHeader("A_PurchaseRequisitionHeader", purchaseRequisition)
 	if err != nil {
 		c.log.Error(err)
 		return
 	}
-	c.log.Info(data)
+	c.log.Info(headerData)
+	
+	itemData, err := c.callToItem(headerData[0].ToItem)
+	if err != nil {
+		c.log.Error(err)
+		return
+	}
+	c.log.Info(itemData)
+	
+	itemDeliveryAddressData, err := c.callToItemDeliveryAddress2(itemData[0].ToItemDeliveryAddress)
+	if err != nil {
+		c.log.Error(err)
+		return
+	}
+	c.log.Info(itemDeliveryAddressData)
+	
+	itemAccountData, err := c.callToItemAccount(itemData[0].ToItemAccount)
+	if err != nil {
+		c.log.Error(err)
+		return
+	}
+	c.log.Info(itemAccountData)
 }
 
-func (c *SAPAPICaller) callPurchaseRequisitionSrvAPIRequirementHeader(api, purchaseRequisition string) (*sap_api_output_formatter.Header, error) {
+func (c *SAPAPICaller) callPurchaseRequisitionSrvAPIRequirementHeader(api, purchaseRequisition string) ([]sap_api_output_formatter.Header, error) {
 	url := strings.Join([]string{c.baseURL, "API_PURCHASEREQ_PROCESS_SRV", api}, "/")
 	req, _ := http.NewRequest("GET", url, nil)
 
@@ -94,16 +115,84 @@ func (c *SAPAPICaller) callPurchaseRequisitionSrvAPIRequirementHeader(api, purch
 	return data, nil
 }
 
+func (c *SAPAPICaller) callToItem(url string) ([]sap_api_output_formatter.ToItem, error) {
+	req, _ := http.NewRequest("GET", url, nil)
+	c.setHeaderAPIKeyAccept(req)
+
+	resp, err := new(http.Client).Do(req)
+	if err != nil {
+		return nil, xerrors.Errorf("API request error: %w", err)
+	}
+	defer resp.Body.Close()
+
+	byteArray, _ := ioutil.ReadAll(resp.Body)
+	data, err := sap_api_output_formatter.ConvertToToItem(byteArray, c.log)
+	if err != nil {
+		return nil, xerrors.Errorf("convert error: %w", err)
+	}
+	return data, nil
+}
+
+func (c *SAPAPICaller) callToItemDeliveryAddress(url string) (*sap_api_output_formatter.ToItemDeliveryAddress, error) {
+	req, _ := http.NewRequest("GET", url, nil)
+	c.setHeaderAPIKeyAccept(req)
+
+	resp, err := new(http.Client).Do(req)
+	if err != nil {
+		return nil, xerrors.Errorf("API request error: %w", err)
+	}
+	defer resp.Body.Close()
+
+	byteArray, _ := ioutil.ReadAll(resp.Body)
+	data, err := sap_api_output_formatter.ConvertToToItemDeliveryAddress(byteArray, c.log)
+	if err != nil {
+		return nil, xerrors.Errorf("convert error: %w", err)
+	}
+	return data, nil
+}
+
+func (c *SAPAPICaller) callToItemAccount(url string) ([]sap_api_output_formatter.ToItemAccount, error) {
+	req, _ := http.NewRequest("GET", url, nil)
+	c.setHeaderAPIKeyAccept(req)
+
+	resp, err := new(http.Client).Do(req)
+	if err != nil {
+		return nil, xerrors.Errorf("API request error: %w", err)
+	}
+	defer resp.Body.Close()
+
+	byteArray, _ := ioutil.ReadAll(resp.Body)
+	data, err := sap_api_output_formatter.ConvertToToItemAccount(byteArray, c.log)
+	if err != nil {
+		return nil, xerrors.Errorf("convert error: %w", err)
+	}
+	return data, nil
+}
+
 func (c *SAPAPICaller) Item(purchaseRequisition, purchaseRequisitionItem string) {
-	data, err := c.callPurchaseRequisitionSrvAPIRequirementItem("A_PurchaseRequisitionItem", purchaseRequisition, purchaseRequisitionItem)
+	itemData, err := c.callPurchaseRequisitionSrvAPIRequirementItem("A_PurchaseRequisitionItem", purchaseRequisition, purchaseRequisitionItem)
 	if err != nil {
 		c.log.Error(err)
 		return
 	}
-	c.log.Info(data)
+	c.log.Info(itemData)
+	
+	itemDeliveryAddressData, err := c.callToItemDeliveryAddress2(itemData[0].ToItemDeliveryAddress)
+	if err != nil {
+		c.log.Error(err)
+		return
+	}
+	c.log.Info(itemDeliveryAddressData)
+	
+	itemAccountData, err := c.callToItemAccount(itemData[0].ToItemAccount)
+	if err != nil {
+		c.log.Error(err)
+		return
+	}
+	c.log.Info(itemAccountData)
 }
 
-func (c *SAPAPICaller) callPurchaseRequisitionSrvAPIRequirementItem(api, purchaseRequisition, purchaseRequisitionItem string) (*sap_api_output_formatter.Item, error) {
+func (c *SAPAPICaller) callPurchaseRequisitionSrvAPIRequirementItem(api, purchaseRequisition, purchaseRequisitionItem string) ([]sap_api_output_formatter.Item, error) {
 	url := strings.Join([]string{c.baseURL, "API_PURCHASEREQ_PROCESS_SRV", api}, "/")
 	req, _ := http.NewRequest("GET", url, nil)
 
@@ -124,21 +213,9 @@ func (c *SAPAPICaller) callPurchaseRequisitionSrvAPIRequirementItem(api, purchas
 	return data, nil
 }
 
-func (c *SAPAPICaller) DeliveryAddress(purchaseRequisition, purchaseRequisitionItem string) {
-	data, err := c.callPurchaseRequisitionSrvAPIRequirementDeliveryAddress("A_PurReqAddDelivery", purchaseRequisition, purchaseRequisitionItem)
-	if err != nil {
-		c.log.Error(err)
-		return
-	}
-	c.log.Info(data)
-}
-
-func (c *SAPAPICaller) callPurchaseRequisitionSrvAPIRequirementDeliveryAddress(api, purchaseRequisition, purchaseRequisitionItem string) (*sap_api_output_formatter.DeliveryAddress, error) {
-	url := strings.Join([]string{c.baseURL, "API_PURCHASEREQ_PROCESS_SRV", api}, "/")
+func (c *SAPAPICaller) callToItemDeliveryAddress2(url string) (*sap_api_output_formatter.ToItemDeliveryAddress, error) {
 	req, _ := http.NewRequest("GET", url, nil)
-
 	c.setHeaderAPIKeyAccept(req)
-	c.getQueryWithDeliveryAddress(req, purchaseRequisition, purchaseRequisitionItem)
 
 	resp, err := new(http.Client).Do(req)
 	if err != nil {
@@ -147,28 +224,16 @@ func (c *SAPAPICaller) callPurchaseRequisitionSrvAPIRequirementDeliveryAddress(a
 	defer resp.Body.Close()
 
 	byteArray, _ := ioutil.ReadAll(resp.Body)
-	data, err := sap_api_output_formatter.ConvertToDeliveryAddress(byteArray, c.log)
+	data, err := sap_api_output_formatter.ConvertToToItemDeliveryAddress(byteArray, c.log)
 	if err != nil {
 		return nil, xerrors.Errorf("convert error: %w", err)
 	}
 	return data, nil
 }
 
-func (c *SAPAPICaller) Account(purchaseRequisition, purchaseRequisitionItem string) {
-	data, err := c.callPurchaseRequisitionSrvAPIRequirementAccount("A_PurReqnAcctAssgmt", purchaseRequisition, purchaseRequisitionItem)
-	if err != nil {
-		c.log.Error(err)
-		return
-	}
-	c.log.Info(data)
-}
-
-func (c *SAPAPICaller) callPurchaseRequisitionSrvAPIRequirementAccount(api, purchaseRequisition, purchaseRequisitionItem string) (*sap_api_output_formatter.Account, error) {
-	url := strings.Join([]string{c.baseURL, "API_PURCHASEREQ_PROCESS_SRV", api}, "/")
+func (c *SAPAPICaller) callToItemAccount2(url string) ([]sap_api_output_formatter.ToItemAccount, error) {
 	req, _ := http.NewRequest("GET", url, nil)
-
 	c.setHeaderAPIKeyAccept(req)
-	c.getQueryWithAccount(req, purchaseRequisition, purchaseRequisitionItem)
 
 	resp, err := new(http.Client).Do(req)
 	if err != nil {
@@ -177,7 +242,67 @@ func (c *SAPAPICaller) callPurchaseRequisitionSrvAPIRequirementAccount(api, purc
 	defer resp.Body.Close()
 
 	byteArray, _ := ioutil.ReadAll(resp.Body)
-	data, err := sap_api_output_formatter.ConvertToAccount(byteArray, c.log)
+	data, err := sap_api_output_formatter.ConvertToToItemAccount(byteArray, c.log)
+	if err != nil {
+		return nil, xerrors.Errorf("convert error: %w", err)
+	}
+	return data, nil
+}
+
+func (c *SAPAPICaller) ItemDeliveryAddress(purchaseRequisition, purchaseRequisitionItem string) {
+	data, err := c.callPurchaseRequisitionSrvAPIRequirementItemDeliveryAddress("A_PurReqAddDelivery", purchaseRequisition, purchaseRequisitionItem)
+	if err != nil {
+		c.log.Error(err)
+		return
+	}
+	c.log.Info(data)
+}
+
+func (c *SAPAPICaller) callPurchaseRequisitionSrvAPIRequirementItemDeliveryAddress(api, purchaseRequisition, purchaseRequisitionItem string) ([]sap_api_output_formatter.ItemDeliveryAddress, error) {
+	url := strings.Join([]string{c.baseURL, "API_PURCHASEREQ_PROCESS_SRV", api}, "/")
+	req, _ := http.NewRequest("GET", url, nil)
+
+	c.setHeaderAPIKeyAccept(req)
+	c.getQueryWithItemDeliveryAddress(req, purchaseRequisition, purchaseRequisitionItem)
+
+	resp, err := new(http.Client).Do(req)
+	if err != nil {
+		return nil, xerrors.Errorf("API request error: %w", err)
+	}
+	defer resp.Body.Close()
+
+	byteArray, _ := ioutil.ReadAll(resp.Body)
+	data, err := sap_api_output_formatter.ConvertToItemDeliveryAddress(byteArray, c.log)
+	if err != nil {
+		return nil, xerrors.Errorf("convert error: %w", err)
+	}
+	return data, nil
+}
+
+func (c *SAPAPICaller) ItemAccount(purchaseRequisition, purchaseRequisitionItem string) {
+	data, err := c.callPurchaseRequisitionSrvAPIRequirementItemAccount("A_PurReqnAcctAssgmt", purchaseRequisition, purchaseRequisitionItem)
+	if err != nil {
+		c.log.Error(err)
+		return
+	}
+	c.log.Info(data)
+}
+
+func (c *SAPAPICaller) callPurchaseRequisitionSrvAPIRequirementItemAccount(api, purchaseRequisition, purchaseRequisitionItem string) ([]sap_api_output_formatter.ItemAccount, error) {
+	url := strings.Join([]string{c.baseURL, "API_PURCHASEREQ_PROCESS_SRV", api}, "/")
+	req, _ := http.NewRequest("GET", url, nil)
+
+	c.setHeaderAPIKeyAccept(req)
+	c.getQueryWithItemAccount(req, purchaseRequisition, purchaseRequisitionItem)
+
+	resp, err := new(http.Client).Do(req)
+	if err != nil {
+		return nil, xerrors.Errorf("API request error: %w", err)
+	}
+	defer resp.Body.Close()
+
+	byteArray, _ := ioutil.ReadAll(resp.Body)
+	data, err := sap_api_output_formatter.ConvertToItemAccount(byteArray, c.log)
 	if err != nil {
 		return nil, xerrors.Errorf("convert error: %w", err)
 	}
@@ -193,7 +318,7 @@ func (c *SAPAPICaller) PurchasingDocument(purchasingDocument, purchasingDocument
 	c.log.Info(data)
 }
 
-func (c *SAPAPICaller) callPurchaseRequisitionSrvAPIRequirementPurchasingDocument(api, purchasingDocument, purchasingDocumentItem string) (*sap_api_output_formatter.Item, error) {
+func (c *SAPAPICaller) callPurchaseRequisitionSrvAPIRequirementPurchasingDocument(api, purchasingDocument, purchasingDocumentItem string) ([]sap_api_output_formatter.Item, error) {
 	url := strings.Join([]string{c.baseURL, "API_PURCHASEREQ_PROCESS_SRV", api}, "/")
 	req, _ := http.NewRequest("GET", url, nil)
 
@@ -231,13 +356,13 @@ func (c *SAPAPICaller) getQueryWithItem(req *http.Request, purchaseRequisition, 
 	req.URL.RawQuery = params.Encode()
 }
 
-func (c *SAPAPICaller) getQueryWithAccount(req *http.Request, purchaseRequisition, purchaseRequisitionItem string) {
+func (c *SAPAPICaller) getQueryWithItemAccount(req *http.Request, purchaseRequisition, purchaseRequisitionItem string) {
 	params := req.URL.Query()
 	params.Add("$filter", fmt.Sprintf("PurchaseRequisition eq '%s' and PurchaseRequisitionItem eq '%s'", purchaseRequisition, purchaseRequisitionItem))
 	req.URL.RawQuery = params.Encode()
 }
 
-func (c *SAPAPICaller) getQueryWithDeliveryAddress(req *http.Request, purchaseRequisition, purchaseRequisitionItem string) {
+func (c *SAPAPICaller) getQueryWithItemDeliveryAddress(req *http.Request, purchaseRequisition, purchaseRequisitionItem string) {
 	params := req.URL.Query()
 	params.Add("$filter", fmt.Sprintf("PurchaseRequisition eq '%s' and PurchaseRequisitionItem eq '%s'", purchaseRequisition, purchaseRequisitionItem))
 	req.URL.RawQuery = params.Encode()

@@ -24,8 +24,13 @@ sap-api-integrations-purchase-requisition-reads が対応する APIサービス 
 ## 本レポジトリ に 含まれる API名
 sap-api-integrations-purchase-requisition-reads には、次の API をコールするためのリソースが含まれています。  
 
-* A_PurchaseRequisitionHeader（購買依頼 - ヘッダ）
-* A_PurchaseRequisitionItem（購買依頼 - 明細）
+* A_PurchaseRequisitionHeader（購買依頼 - ヘッダ）※購買依頼関連データを取得するために、ToItem、ToItemDeliveryAddress、ToItemAccount、と合わせて利用されます。  
+* ToItem（購買依頼 - 明細）
+* ToItemDeliveryAddress（購買依頼 - 納入先住所）
+* ToItemAccount（購買依頼 - 勘定設定）
+* A_PurchaseRequisitionItem（購買依頼 - 明細）※購買依頼関連データを取得するために、ToItemDeliveryAddress、ToItemAccount、と合わせて利用されます。  
+* ToItemDeliveryAddress（購買依頼 - 納入先住所）
+* ToItemAccount（購買依頼 - 明細）
 * A_PurReqAddDelivery（購買依頼 - 納入先住所）
 * A_PurReqnAcctAssgmt（購買依頼 - 勘定設定）
 
@@ -47,11 +52,11 @@ Latona および AION の SAP 関連リソースでは、Inputs フォルダ下�
 * sample.jsonの記載例(1)  
 
 accepter において 下記の例のように、データの種別（＝APIの種別）を指定します。  
-ここでは、"PurchasingDocument" が指定されています。    
+ここでは、"Header" が指定されています。    
   
 ```
 	"api_schema": "/sap.s4.beh.purchaserequisition.v1.PurchaseRequisition.Created.v1",
-	"accepter": ["Header","Item","DeliveryAddress"],
+	"accepter": ["Header"],
 	"purchase_requisition": "10000010",
 	"deleted": false
 ```
@@ -88,14 +93,14 @@ func (c *SAPAPICaller) AsyncGetPurchaseRequisition(purchaseRequisition, purchase
 				c.Item(purchaseRequisition, purchaseRequisitionItem)
 				wg.Done()
 			}()
-		case "DeliveryAddress":
+		case "ItemDeliveryAddress":
 			func() {
-				c.DeliveryAddress(purchaseRequisition, purchaseRequisitionItem)
+				c.ItemDeliveryAddress(purchaseRequisition, purchaseRequisitionItem)
 				wg.Done()
 			}()
-		case "Account":
+		case "ItemAccount":
 			func() {
-				c.Account(purchaseRequisition, purchaseRequisitionItem)
+				c.ItemAccount(purchaseRequisition, purchaseRequisitionItem)
 				wg.Done()
 			}()
 		case "PurchasingDocument":
@@ -115,14 +120,22 @@ func (c *SAPAPICaller) AsyncGetPurchaseRequisition(purchaseRequisition, purchase
 ## Output  
 本マイクロサービスでは、[golang-logging-library](https://github.com/latonaio/golang-logging-library) により、以下のようなデータがJSON形式で出力されます。  
 以下の sample.json の例は、SAP 購買依頼  の ヘッダデータ が取得された結果の JSON の例です。  
-以下の項目のうち、"PurchaseRequisition" ～ "SourceDetermination" は、/SAP_API_Output_Formatter/type.go 内 の Type Header {} による出力結果です。"cursor" ～ "time"は、golang-logging-library による 定型フォーマットの出力結果です。  
+以下の項目のうち、"PurchaseRequisition" ～ "to_PurchaseReqnItem" は、/SAP_API_Output_Formatter/type.go 内 の Type Header {} による出力結果です。"cursor" ～ "time"は、golang-logging-library による 定型フォーマットの出力結果です。  
 
 ```
 {
-	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-purchase-requisition-reads/SAP_API_Caller/caller.go#L62",
+	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-purchase-requisition-reads/SAP_API_Caller/caller.go#L73",
 	"function": "sap-api-integrations-purchase-requisition-reads/SAP_API_Caller.(*SAPAPICaller).Header",
 	"level": "INFO",
-	"message": "&{PurchaseRequisition:10000012 PurchaseRequisitionType:NB SourceDetermination:false}",
-	"time": "2021-12-08T10:27:56.594315+09:00"
+	"message": [
+		{
+			"PurchaseRequisition": "10000010",
+			"PurchaseRequisitionType": "NB",
+			"SourceDetermination": false,
+			"to_PurchaseReqnItem": "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/API_PURCHASEREQ_PROCESS_SRV/A_PurchaseRequisitionHeader('10000010')/to_PurchaseReqnItem"
+		}
+	],
+	"time": "2021-12-31T10:52:54.330939+09:00"
 }
+
 ```

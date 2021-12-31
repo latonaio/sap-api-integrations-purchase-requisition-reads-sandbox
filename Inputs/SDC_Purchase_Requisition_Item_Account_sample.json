@@ -4,9 +4,9 @@
 	"redis_key": "abcdefg",
 	"filepath": "/var/lib/aion/Data/rededge_sdc/abcdef.json",
 	"PurchaseRequisition": {
-		"PurchaseRequisition": "10000000",
+		"PurchaseRequisition": "10000010",
 		"PurchaseRequisitionType": "",
-		"SourceDetermination": false,
+		"SourceDetermination": null,
 		"PurchaseRequisitionItem": {
 			"PurchaseRequisitionItem": "10",
 			"PurchasingDocument": "",
@@ -29,7 +29,7 @@
 			"PurchasingGroup": "",
 			"Plant": "",
 			"CompanyCode": "",
-			"SourceOfSupplyIsAssigned": false,
+			"SourceOfSupplyIsAssigned": null,
 			"SupplyingPlant": "",
 			"OrderedQuantity": "",
 			"DeliveryDate": "",
@@ -49,8 +49,8 @@
 			"IsPurReqnBlocked": "",
 			"PurchaseRequisitionStatus": "",
 			"Batch": "",
-			"GoodsReceiptIsExpected": false,
-			"GoodsReceiptIsNonValuated": false,
+			"GoodsReceiptIsExpected": null,
+			"GoodsReceiptIsNonValuated": null,
 			"RequirementTracking": "",
 			"MRPController": "",
 			"Reservation": "",
@@ -92,8 +92,8 @@
 			}
 		}
 	},
-	"api_schema": "/sap.s4.beh.purchaserequisition.v1.PurchaseRequisition.Created.v1",
-	"accepter": ["DeliveryAddress"],
-	"purchase_requisition": "10000000",
+	"api_schema": "sap.s4.beh.purchaserequisition.v1.PurchaseRequisition.Created.v1",
+	"accepter": ["ItemAccount"],
+	"purchase_requisition": "10000010",
 	"deleted": false
 }

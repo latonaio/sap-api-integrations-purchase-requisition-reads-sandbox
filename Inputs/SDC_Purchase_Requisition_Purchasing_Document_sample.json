@@ -6,7 +6,7 @@
 	"PurchaseRequisition": {
 		"PurchaseRequisition": "",
 		"PurchaseRequisitionType": "",
-		"SourceDetermination": false,
+		"SourceDetermination": null,
 		"PurchaseRequisitionItem": {
 			"PurchaseRequisitionItem": "",
 			"PurchasingDocument": "4500000024",
@@ -29,7 +29,7 @@
 			"PurchasingGroup": "",
 			"Plant": "",
 			"CompanyCode": "",
-			"SourceOfSupplyIsAssigned": false,
+			"SourceOfSupplyIsAssigned": null,
 			"SupplyingPlant": "",
 			"OrderedQuantity": "",
 			"DeliveryDate": "",
@@ -49,8 +49,8 @@
 			"IsPurReqnBlocked": "",
 			"PurchaseRequisitionStatus": "",
 			"Batch": "",
-			"GoodsReceiptIsExpected": false,
-			"GoodsReceiptIsNonValuated": false,
+			"GoodsReceiptIsExpected": null,
+			"GoodsReceiptIsNonValuated": null,
 			"RequirementTracking": "",
 			"MRPController": "",
 			"Reservation": "",
@@ -92,7 +92,7 @@
 			}
 		}
 	},
-	"api_schema": "/sap.s4.beh.purchaserequisition.v1.PurchaseRequisition.Created.v1",
+	"api_schema": "sap.s4.beh.purchaserequisition.v1.PurchaseRequisition.Created.v1",
 	"accepter": ["PurchasingDocument"],
 	"purchase_requisition": "",
 	"deleted": false

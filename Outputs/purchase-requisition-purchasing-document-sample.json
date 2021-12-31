@@ -1,7 +1,0 @@
-{
-	"cursor": "/Users/latona2/bitbucket/sap-api-integrations-purchase-requisition-reads/SAP_API_Caller/caller.go#L183",
-	"function": "sap-api-integrations-purchase-requisition-reads/SAP_API_Caller.(*SAPAPICaller).PurchasingDocument",
-	"level": "INFO",
-	"message": "&{PurchaseRequisition:10000012 PurchaseRequisitionItem:10 PurchasingDocument:4500002421 PurchasingDocumentItem:10 PurReqnReleaseStatus:02 PurchasingDocumentItemCategory:5 PurchaseRequisitionItemText:Trad.Good 13,Reorder Point,Thrd Party AccountAssignmentCategory:Y Material:TG13 MaterialGroup:L001 PurchasingDocumentCategory:B RequestedQuantity:2 BaseUnit:PC PurchaseRequisitionPrice:12.35 PurReqnPriceQuantity:1 MaterialGoodsReceiptDuration:0 ReleaseCode: PurchaseRequisitionReleaseDate:/Date(1471996800000)/ PurchasingOrganization:1710 PurchasingGroup:001 Plant:1710 CompanyCode:1710 SourceOfSupplyIsAssigned:false SupplyingPlant: OrderedQuantity:2 DeliveryDate:/Date(1473120000000)/ CreationDate:/Date(1473120000000)/ ProcessingStatus:B ExternalApprovalStatus: PurchasingInfoRecord: Supplier:17300001 FixedSupplier: RequisitionerName: PurReqnItemCurrency:USD MaterialPlannedDeliveryDurn:8 StorageLocation: PurReqnSourceOfSupplyType: ConsumptionPosting:V PurReqnOrigin:V IsPurReqnBlocked: PurchaseRequisitionStatus: Batch: GoodsReceiptIsExpected:false GoodsReceiptIsNonValuated:false RequirementTracking: MRPController:001 Reservation:0 LastChangeDateTime:/Date(1490263008054+0000)/ IsDeleted:}",
-	"time": "2021-12-08T11:36:50.488783+09:00"
-}
