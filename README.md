@@ -25,12 +25,12 @@ sap-api-integrations-purchase-requisition-reads が対応する APIサービス 
 sap-api-integrations-purchase-requisition-reads には、次の API をコールするためのリソースが含まれています。  
 
 * A_PurchaseRequisitionHeader（購買依頼 - ヘッダ）※購買依頼関連データを取得するために、ToItem、ToItemDeliveryAddress、ToItemAccount、と合わせて利用されます。  
-* ToItem（購買依頼 - 明細）
-* ToItemDeliveryAddress（購買依頼 - 納入先住所）
-* ToItemAccount（購買依頼 - 勘定設定）
+* ToItem（購買依頼 - 明細  ※To）
+* ToItemDeliveryAddress（購買依頼 - 納入先住所  ※To）
+* ToItemAccount（購買依頼 - 勘定設定  ※To）
 * A_PurchaseRequisitionItem（購買依頼 - 明細）※購買依頼関連データを取得するために、ToItemDeliveryAddress、ToItemAccount、と合わせて利用されます。  
-* ToItemDeliveryAddress（購買依頼 - 納入先住所）
-* ToItemAccount（購買依頼 - 明細）
+* ToItemDeliveryAddress（購買依頼 - 納入先住所 ※To）
+* ToItemAccount（購買依頼 - 明細 ※To）
 * A_PurReqAddDelivery（購買依頼 - 納入先住所）
 * A_PurReqnAcctAssgmt（購買依頼 - 勘定設定）
 
