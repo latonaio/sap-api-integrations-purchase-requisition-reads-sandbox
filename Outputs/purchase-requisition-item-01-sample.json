@@ -21,7 +21,7 @@
 			"PurReqnPriceQuantity": "1",
 			"MaterialGoodsReceiptDuration": "0",
 			"ReleaseCode": "",
-			"PurchaseRequisitionReleaseDate": "/Date(1473120000000)/",
+			"PurchaseRequisitionReleaseDate": "2016-09-06T09:00:00+09:00",
 			"PurchasingOrganization": "",
 			"PurchasingGroup": "001",
 			"Plant": "1710",
@@ -29,8 +29,8 @@
 			"SourceOfSupplyIsAssigned": false,
 			"SupplyingPlant": "",
 			"OrderedQuantity": "0",
-			"DeliveryDate": "/Date(1473120000000)/",
-			"CreationDate": "/Date(1473120000000)/",
+			"DeliveryDate": "2016-09-06T09:00:00+09:00",
+			"CreationDate": "2016-09-06T09:00:00+09:00",
 			"ProcessingStatus": "N",
 			"ExternalApprovalStatus": "",
 			"PurchasingInfoRecord": "",
@@ -57,5 +57,5 @@
 			"to_PurchaseReqnAcctAssgmt": "https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata/sap/API_PURCHASEREQ_PROCESS_SRV/A_PurchaseRequisitionItem(PurchaseRequisition='10000010',PurchaseRequisitionItem='10')/to_PurchaseReqnAcctAssgmt"
 		}
 	],
-	"time": "2021-12-31T10:54:52.963915+09:00"
+	"time": "2022-01-28T10:53:48+09:00"
 }
